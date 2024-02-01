@@ -1,0 +1,552 @@
+{
+    "app": {
+        "backend": {
+			"src": "C://Repositorios Git//Simionato//inventario imobilizado//backend",
+            "database": {
+                "type": "POSGRESQL",
+                "name": "db_inventario_imobilizado",
+                "conexao": {
+                    "user": "postgres",
+                    "password": "123456",
+                    "host": "localhost",
+                    "port": 5432
+                },
+				"script_src":"C://Script SQL//Assessoria Simionato//Inventário Ativo//scripts"
+            },
+            "tables": [
+                {
+                    "name": "inventarios",
+                    "fields": [{
+                            "name": "id_empresa",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }, {
+                            "name": "id",
+                            "type": "serial",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }, {
+                            "name": "id_cliente",
+                             "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }, {
+                            "name": "id_responsavel",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }, {
+                            "name": "data_inicial",
+                            "type": "date",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                             "name": "data_final",
+                            "type": "date",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "data_encerra",
+                            "type": "date",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "descricao",
+                            "type": "varchar",
+                            "length": 100,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "laudo",
+                            "type": "text",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_insert",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_update",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }
+                    ],
+                    "primaryKey": [{
+                            "key": "id_empresa"
+                        },
+                        {
+                            "key": "id"
+                        }
+                    ],
+                    "variables": {
+                        "getone": "inventario",
+                        "getall": "inventarios"
+                    },
+                    "tablespace": "Producao"
+                },
+                {
+                    "name": "produtos",
+                    "fields": [{
+                            "name": "id_empresa",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+						{
+                            "name": "id_inventario",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "id",
+                            "type": "serial",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "codigo",
+                            "type": "varchar",
+                            "length": 9,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "descricao",
+                            "type": "varchar",
+                            "length": 100,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+						
+                        {
+                            "name": "cod_grupo",
+                            "type": "varchar",
+                            "length": 9,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "cnpj",
+                            "type": "char",
+                            "length": 14,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "nro_nfe",
+                            "type": "char",
+                            "length": 9,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": "N"
+                        },
+                        {
+                            "name": "dt_aquisicao",
+                            "type": "date",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "S",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "valor_aquisicao",
+                            "type": "numeric",
+                            "length": 15,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },{
+                            "name": "valor_depreciacao",
+                            "type": "numeric",
+                            "length": 15,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },{
+                            "name": "valor_residual",
+                            "type": "numeric",
+                            "length": 15,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },{
+                            "name": "reav_mapa2",
+                            "type": "numeric",
+                            "length": 15,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },{
+                            "name": "deemed_cost",
+                            "type": "numeric",
+                            "length": 15,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },{
+                            "name": "valor_contabil",
+                            "type": "numeric",
+                            "length": 15,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_insert",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_update",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }
+                    ],
+                    "primaryKey": [{
+                            "key": "id_empresa"
+                        },
+						{
+                            "key": "id_inventario"
+                        },
+                        {
+                            "key": "id"
+                        }
+                    ],
+                    "variables": {
+                        "getone": "produto",
+                        "getall": "produtos"
+                    },
+                    "tablespace": "Producao"
+                },
+                {
+                    "name": "clientes",
+                    "fields": [{
+                            "name": "id_empresa",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+						{
+                            "name": "id_inventario",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+						{
+                            "name": "id",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "cnpj",
+                            "type": "varchar",
+                            "length": 14,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "razao",
+                            "type": "varchar",
+                            "length": 100,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_insert",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_update",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }
+                    ],
+                    "primaryKey": [{
+                            "key": "id_empresa"
+                        },
+						{
+                            "key": "id_inventario"
+                        },
+                        {
+                            "key": "id"
+                        },
+                    ],
+                    "variables": {
+                        "getone": "cliente",
+                        "getall": "clientes"
+                    },
+                    "tablespace": "Producao"
+                },
+                {
+                    "name": "lancamentos",
+                    "fields": [{
+                            "name": "id_empresa",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "id_inventario",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "id",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+						{
+                            "name": "codigo",
+                            "type": "varchar",
+                            "length": 9,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "local",
+                            "type": "varchar",
+                            "length": 10,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "data",
+                            "type": "date",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "id_resp",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "placa_imobilizado",
+                            "type": "varchar",
+                            "length": 9,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "obs",
+                            "type": "varchar",
+                            "length": 100,
+                            "precision": 0,
+                            "nulo": "S",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_insert",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_update",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }
+                    ],
+                    "primaryKey": [{
+                            "key": "id_empresa"
+                        },
+                        {
+                            "key": "id"
+                        },
+                        {
+                            "key": "codigo"
+                        }
+                    ],
+                    "variables": {
+                        "getone": "lancamento",
+                        "getall": "lancamentos"
+                    },
+                    "tablespace": "Producao"
+                },
+				{
+                    "name": "localizacoes",
+                    "fields": [{
+                            "name": "id_empresa",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+						{
+                            "name": "id_inventario",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "local",
+                            "type": "char",
+                            "length": 02,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "sublocal",
+                            "type": "char",
+                            "length": 15,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "descricao",
+                            "type": "varchar",
+                            "length": 50,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_insert",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_update",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }
+                    ],
+                    "primaryKey": [{
+                            "key": "id_empresa"
+                        },
+                        {
+                            "key": "id_inventario"
+                        },
+                        {
+                            "key": "local"
+                        },
+                        {
+                            "key": "sublocal"
+                        }
+						
+                    ],
+                    "variables": {
+                        "getone": "localizacao",
+                        "getall": "localizacoes"
+                    },
+                    "tablespace": "Producao"
+                }
+               
+            ],
+		"parametros" :[]
+        },
+        "frontend": {
+            "src": "C://Repositorios Git//Simionato//inventario imobilizado//frontend//server",
+            "server": {
+              "includes": [
+                {
+                  "variable": "express",
+                  "from": "express"
+                },
+                {
+                  "variable": "cors",
+                  "from": "cors"
+                }
+              ],
+                "app": "app",
+                "porta": 3000,
+                "rotas": [{ "path": "/", "require": ".//route//tarefaRoute.js" }]
+            }
+        }
+    }
+}

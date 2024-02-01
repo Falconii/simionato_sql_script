@@ -1,0 +1,23 @@
+CREATE OR REPLACE FUNCTION "public"."projetos" (in _id_projeto int4, out _saida numeric) RETURNS numeric AS
+'
+DECLARE
+
+BEGIN
+
+    _saida = 0;
+
+   SELECT horasexec INTO _saida
+   FROM projetos  
+   WHERE  ID = _ID_PROJETO;
+   
+   if (_saida is NULL) then
+
+      _saida = 0;
+
+   end if;
+
+    return;
+
+END;
+'
+LANGUAGE 'plpgsql'

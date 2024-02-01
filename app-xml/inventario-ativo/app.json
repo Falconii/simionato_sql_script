@@ -1,0 +1,580 @@
+{
+    "app": {
+        "backend": {
+			"src": "C://Repositorios Git//Simionato//inventario web//backend",
+            "database": {
+                "type": "POSGRESQL",
+                "name": "db_invetario_web",
+                "conexao": {
+                    "user": "postgres",
+                    "password": "123456",
+                    "host": "localhost",
+                    "port": 5432
+                },
+				"script_src":"C://Script SQL//Assessoria Simionato//Inventário//scripts"
+            },
+            "tables": [
+                {
+                    "name": "inventarios",
+                    "fields": [{
+                            "name": "id_empresa",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }, {
+                            "name": "id",
+                            "type": "serial",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }, {
+                            "name": "id_cliente",
+                             "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }, {
+                            "name": "id_responsavel",
+                             "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }, {
+                            "name": "data_inicial",
+                            "type": "date",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                             "name": "data_final",
+                            "type": "date",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "data_encerra",
+                            "type": "date",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "descricao",
+                            "type": "varchar",
+                            "length": 100,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "laudo",
+                            "type": "text",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_insert",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_update",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }
+                    ],
+                    "primaryKey": [{
+                            "key": "id_empresa"
+                        },
+                        {
+                            "key": "id"
+                        }
+                    ],
+                    "variables": {
+                        "getone": "inventario",
+                        "getall": "inventarios"
+                    },
+                    "tablespace": "Producao"
+                },
+                {
+                    "name": "produtos",
+                    "fields": [{
+                            "name": "id_empresa",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+						{
+                            "name": "id_inventario",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "codigo",
+                            "type": "varchar",
+                            "length": 15,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "descricao",
+                            "type": "varchar",
+                            "length": 100,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "partnumber",
+                            "type": "char",
+                            "length": 15,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "controlado",
+                            "type": "char",
+                            "length": 1,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": "N"
+                        },
+                        {
+                            "name": "dun",
+                            "type": "char",
+                            "length": 13,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "dun_14",
+                            "type": "varchar",
+                            "length": 14,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_insert",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_update",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }
+                    ],
+                    "primaryKey": [{
+                            "key": "id_empresa"
+                        },
+						{
+                            "key": "id_inventario"
+                        },
+                        {
+                            "key": "codigo"
+                        }
+                    ],
+                    "variables": {
+                        "getone": "produto",
+                        "getall": "produtos"
+                    },
+                    "tablespace": "Producao"
+                },
+                {
+                    "name": "complementos",
+                    "fields": [{
+                            "name": "id_empresa",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+						{
+                            "name": "id_inventario",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "codigo",
+                            "type": "varchar",
+                            "length": 15,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "local",
+                            "type": "varchar",
+                            "length": 10,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "lote",
+                            "type": "char",
+                            "length": 10,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "saldo",
+                            "type": "numeric",
+                            "length": 15,
+                            "precision": 4,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "valor_medio",
+                            "type": "numeric(15,4)",
+                            "length": 15,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "status_inventario",
+                            "type": "char",
+                            "length": 1,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "id_contagem",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "qtd_contagem",
+                            "type": "numeric",
+                            "length": 10,
+                            "precision": 4,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "qtd_ajuste",
+                            "type": "numeric",
+                            "length": 10,
+                            "precision": 4,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "taxa_juros",
+                            "type": "numeric",
+                            "length": 5,
+                            "precision": 2,
+                            "nulo": "N",
+                            "padrao": ""
+                        }, {
+                            "name": "encerramento_ct",
+                            "type": "char",
+                            "length": 1,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_insert",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_update",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }
+                    ],
+                    "primaryKey": [{
+                            "key": "id_empresa"
+                        },
+						{
+                            "key": "id_inventario"
+                        },
+                        {
+                            "key": "codigo"
+                        },
+						{
+							"key": "local"
+						},
+						{
+							"key": "lote"
+						}
+                    ],
+                    "variables": {
+                        "getone": "complemento",
+                        "getall": "complementos"
+                    },
+                    "tablespace": "Producao"
+                },
+                {
+                    "name": "contagens",
+                    "fields": [{
+                            "name": "id_empresa",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "id",
+                            "type": "serial",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+						{
+                            "name": "codigo",
+                            "type": "varchar",
+                            "length": 15,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "local",
+                            "type": "varchar",
+                            "length": 10,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "lote",
+                            "type": "char",
+                            "length": 10,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "data",
+                            "type": "date",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "nro_contagem",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "qtd",
+                            "type": "numeric",
+                            "length": 15,
+                            "precision": 4,
+                            "nulo": "S",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "qtd_ajuste",
+                             "type": "numeric",
+                            "length": 15,
+                            "precision": 4,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "id_usuario",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "status",
+                            "type": "char",
+                            "length": 1,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "encerramento_st",
+                            "type": "char",
+                            "length": 1,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "laudo",
+                            "type": "text",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "S",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_insert",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_update",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }
+                    ],
+                    "primaryKey": [{
+                            "key": "id_empresa"
+                        },
+                        {
+                            "key": "id"
+                        }
+                    ],
+                    "variables": {
+                        "getone": "contagem",
+                        "getall": "contagens"
+                    },
+                    "tablespace": "Producao"
+                },
+				{
+                    "name": "users_inventario",
+                    "fields": [{
+                            "name": "id_empresa",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+						{
+                            "name": "id_inventario",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "id_usuario",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_insert",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        },
+                        {
+                            "name": "user_update",
+                            "type": "int4",
+                            "length": 0,
+                            "precision": 0,
+                            "nulo": "N",
+                            "padrao": ""
+                        }
+                    ],
+                    "primaryKey": [{
+                            "key": "id_empresa"
+                        },
+                        {
+                            "key": "id_inventario"
+                        },
+                        {
+                            "key": "id_usuario"
+                        }
+						
+						
+                    ],
+                    "variables": {
+                        "getone": "user_inventario",
+                        "getall": "users_inventario"
+                    },
+                    "tablespace": "Producao"
+                }
+               
+            ],
+		"parametros" :[]
+        },
+        "frontend": {
+            "src": "C://Repositorios Git//makeapp//backend//server",
+            "server": {
+              "includes": [
+                {
+                  "variable": "express",
+                  "from": "express"
+                },
+                {
+                  "variable": "cors",
+                  "from": "cors"
+                }
+              ],
+                "app": "app",
+                "porta": 3000,
+                "rotas": [{ "path": "/", "require": ".//route//tarefaRoute.js" }]
+            }
+        }
+    }
+}

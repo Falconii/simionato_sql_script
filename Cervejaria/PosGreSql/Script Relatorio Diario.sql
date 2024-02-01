@@ -1,0 +1,119 @@
+SELECT SUM(DEBITO) AS DEBITO,SUM(CREDITO) AS CREDITO FROM
+--SELECT TABELA.DT_LAN,COUNT(*) FROM
+(
+    SELECT  MOVI.BKPF_BUKRS                   AS EMPRESA
+           ,MOVI.bkpf_belnr                   AS NRO
+           ,MOVI.bseg_buzei                   AS SEQ
+           ,MOVI.linha                        AS LINHA
+           ,MOVI.bkpf_budat                   AS DT_LAN
+           ,MOVI.bkpf_bldat                   AS DT_DOC
+           ,MOVI.BSEG_HKONT                   AS CONTA
+           ,CC.DESCRICAO                      AS DESCRICAO
+           ,CC.NIVEL                          AS NIVEL
+           --,CONTRA.BSEG_HKONT                 AS CONTRA_PARTIDA
+           --,CCONTRA.DESCRICAO                 AS CONTRA_PARTIDA_DESCRICAO
+           ,MOVI.BSEG_KOART                   AS TIPO_CONTA
+           ,CASE 
+               WHEN MOVI.BSEG_SHKZG = 'H' THEN  'CREDITO'
+               WHEN MOVI.BSEG_SHKZG = 'S' THEN  'DEBITO'
+               ELSE                         '??? => ' ||  MOVI.BSEG_SHKZG
+            END   TIPO_MOVIMENTO
+           ,MOVI.BKPF_BKTXT AS CABECALHO
+           ,MOVI.BSEG_SGTXT AS HISTORICO
+           ,CASE
+               WHEN MOVI.BSEG_SHKZG = 'H' AND CC.NIVEL = '1' THEN  MOVI.BSEG_DMBTR * -1
+               WHEN MOVI.BSEG_SHKZG = 'H' AND CC.NIVEL = '2' THEN  MOVI.BSEG_DMBTR 
+               WHEN MOVI.BSEG_SHKZG = 'H' AND CC.NIVEL = '3' THEN  MOVI.BSEG_DMBTR 
+               WHEN MOVI.BSEG_SHKZG = 'H' AND CC.NIVEL = '4' THEN  MOVI.BSEG_DMBTR * -1
+               ELSE                             0
+            END  AS  CREDITO
+           ,CASE
+               WHEN MOVI.BSEG_SHKZG = 'S' AND CC.NIVEL = '1' THEN  MOVI.BSEG_DMBTR 
+               WHEN MOVI.BSEG_SHKZG = 'S' AND CC.NIVEL = '2' THEN  MOVI.BSEG_DMBTR * -1
+               WHEN MOVI.BSEG_SHKZG = 'S' AND CC.NIVEL = '3' THEN  MOVI.BSEG_DMBTR * -1
+               WHEN MOVI.BSEG_SHKZG = 'S' AND CC.NIVEL = '4' THEN  MOVI.BSEG_DMBTR 
+               ELSE                             0
+            END  AS  DEBITO
+    FROM MOVIDET MOVI
+    LEFT JOIN CONTACONTABIL CC        ON CC.CONTA          = MOVI.BSEG_HKONT 
+    --LEFT JOIN MOVIDET       CONTRA    ON CONTRA.ID         = MOVI.ID AND CONTRA.BKPF_BELNR = MOVI.BKPF_BELNR AND CONTRA.BSEG_BUZEI  <> MOVI.BSEG_BUZEI  
+    --LEFT JOIN CONTACONTABIL CCONTRA   ON CCONTRA.CONTA     = CONTRA.BSEG_HKONT 
+    WHERE 
+    MOVI.bkpf_belnr  = '5400000008' 
+    --MOVI.bkpf_belnr = '5500049388' 
+    --MOVI.BKPF_BUKRS = '1002' AND MOVI.BSEG_HKONT  = '1102010010' AND to_char(MOVI.bkpf_budat , 'YYYY') = '2021' AND  to_char(MOVI.bkpf_budat, 'MM') = '01' --AND MOVI.bkpf_belnr  = '3200000848' --AND to_char(MOVI.BKPF_BUDAT, 'dd') = '03' 
+) AS TABELA
+GROUP BY TABELA.DT_LAN
+
+
+
+
+
+SELECT      ID                               AS ID
+           ,MOVI.bkpf_belnr                  AS NRO
+           ,MOVI.bseg_buzei                  AS SEQ
+           ,MOVI.bkpf_budat                  AS DATA
+           ,MOVI.BSEG_HKONT                  AS CONTA
+           ,MOVI.BSEG_KOART                  AS TIPO_CONTA
+           ,CASE 
+               WHEN MOVI.BSEG_SHKZG = 'H' THEN  'CREDITO'
+               WHEN MOVI.BSEG_SHKZG = 'S' THEN  'DEBITO'
+               ELSE                         '??? => ' ||  MOVI.BSEG_SHKZG
+            END   TIPO_MOVIMENTO
+           ,MOVI.BKPF_BKTXT AS CABECALHO
+           ,MOVI.BSEG_SGTXT AS HISTORICO
+           ,CASE
+               WHEN MOVI.BSEG_SHKZG = 'S' THEN  MOVI.BSEG_DMBTR 
+               ELSE                             0
+            END  AS  CREDITO
+           ,CASE
+               WHEN MOVI.BSEG_SHKZG = 'H' THEN  MOVI.BSEG_DMBTR 
+               ELSE                             0
+            END  AS  DEBITO
+    FROM MOVIDET MOVI
+    WHERE    BSEG_HKONT  = '3101100280'
+    ORDER BY MOVI.bkpf_belnr,MOVI.bseg_buzei   
+
+
+
+SELECT   SALDO.CDEMPRESA AS EMPRESA, 
+         SALDO.CDFILIAL  AS FILIAL, 
+         CONTA.CONTA     AS CONTA,
+         CONTA.DESCRICAO AS DESCRICAO,
+         SALDO.MES       AS MES, 
+         SALDO.ANO       AS ANO, 
+         SALDO.SALDOINICIAL AS SALDOINICIAL, 
+         SALDO.CREDITO      AS CREDITO, 
+         SALDO.DEBITO       AS DEBITO, 
+         SALDO.SALDOFINAL   AS SALDOFINAL 
+FROM     CONTACONTABIL CONTA 
+INNER    JOIN SALDO SALDO ON SALDO.CDEMPRESA = '1002'  AND SALDO.CONTA = CONTA.CONTA AND SALDO.ANO = '2021' AND SALDO.MES = '01'
+ORDER BY SALDO.CDEMPRESA,SALDO.CDFILIAL,CONTA.CONTA,SALDO.ANO,SALDO.MES
+GO
+ 
+  
+
+
+SELECT SALDO.CDEMPRESA, COALESCE(COUNT(*),0) AS TOTAL    
+      FROM  CONTACONTABIL CONTA  
+      INNER JOIN SALDO SALDO ON  SALDO.CONTA = CONTA.CONTA AND SALDO.CDEMPRESA = '1002'  AND SALDO.ANO = '2021' AND SALDO.MES = '01'  
+GROUP BY SALDO.CDEMPRESA
+
+SELECT   SALDO.CDEMPRESA AS EMPRESA,   CONTA.CONTA AS CONTA,   CONTA.DESCRICAO AS DESCRICAO, SALDO.CDFILIAL AS FILIAL, SALDO.MES AS MES,   SALDO.ANO AS ANO,   SALDO.SALDOINICIAL AS SALDOINICIAL,   SALDO.CREDITO AS CREDITO,   SALDO.DEBITO AS DEBITO,   SALDO.SALDOFINAL AS SALDOFINAL  
+FROM  CONTACONTABIL CONTA  
+INNER JOIN SALDO SALDO ON  SALDO.CONTA = CONTA.CONTA AND SALDO.CDEMPRESA = '1002'  AND SALDO.ANO = '2021' AND SALDO.MES = '01'   
+ORDER BY SALDO.CDEMPRESA,CONTA.CONTA,SALDO.CDFILIAL,SALDO.ANO,SALDO.MES  LIMIT 1000 OFFSET 0 
+
+SELECT CONTA.CONTA,CONTA.DESCRICAO 
+FROM      CONTACONTABIL CONTA 
+ORDER BY CONTA
+
+SELECT *  FROM MOVICAB
+
+SELECT LINHA FROM MOVIDET GROUP BY ID 
+
+
+TRUNCATE MOVICAB;
+GO
+TRUNCATE MOVIDET;
+GO
