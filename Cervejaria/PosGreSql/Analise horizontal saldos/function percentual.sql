@@ -31,11 +31,11 @@ BEGIN
       END IF   ;   
 
       IF (_vlrAnterior > 0) THEN
-         _saida =  round((_vlrAtual/_vlrAnterior),9);
+         _saida =  round((_vlrAtual/_vlrAnterior),9) -1;
       ELSE 
          _saida =  round((_vlrAtual/1),9);
       END IF;
-      
+      _saida = _saida * 100
       return;
 END;
 $$
@@ -43,7 +43,7 @@ LANGUAGE 'plpgsql'
 go
 
 
-select * from percentual(150,100);
+select * from percentual(94805.32,26701.20);
 
 //select * from gravaracumulado('1001','C100','2023');
 

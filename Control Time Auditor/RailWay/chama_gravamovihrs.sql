@@ -21,11 +21,12 @@ $$
 LANGUAGE 'plpgsql'
 go
 
-select * from chama_gravamovihrs(1,1,20,12,2023) 
+select * from chama_gravamovihrs(1,1,20,01,2024) 
 
 
 //CREATE TABLE tickets_movi_12 AS  SELECT * FROM tickets_movi;
 
-//delete  FROM tickets_movi
+SELECT * FROM tickets_movi
+--delete  FROM tickets_movi
 
 //SELECT * FROM tickets_movi_12

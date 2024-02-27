@@ -3,6 +3,11 @@
   JAN/2024 - GERADO 18/12 A 19/01
 
 */
+/*
+
+  FEV/2024 - GERADO 22/01 A 22/02
+
+*/
 CREATE OR REPLACE FUNCTION "public"."function_gravamovihrs" (in _id_empresa int4,in _id_usuario int4, in _mes int4 , in _ano int4 , out _saida numeric(5,2) ) 
 AS
 $$
@@ -45,15 +50,15 @@ BEGIN
 
     eFerias = 'N';
         
-    hoje = cast ( _ano as char(4)) || '-' ||  cast ( _mes as char(2)) || '-18' ;
+    hoje = cast ( _ano as char(4)) || '-' ||  cast ( _mes as char(2)) || '-22' ;
 
     select extract(MONTH from hoje) into mes; 
 
-    //delete from public.tickets_movi where id_empresa = _id_empresa and id_usuario = _id_usuario and to_char(data_ref,'YYYY-MM') = to_char(hoje,'YYYY-MM');
+    /* delete from public.tickets_movi where id_empresa = _id_empresa and id_usuario = _id_usuario and to_char(data_ref,'YYYY-MM') = to_char(hoje,'YYYY-MM'); */
     
     select extract(DAY from hoje) into dia; 
 
-    while ( ((mes = 12) AND (dia >= 18)) or((mes = 01) AND (dia <= 19)) ) 
+    while ( ((mes = 01) AND (dia >= 22)) or((mes = 02) AND (dia <= 21)) ) 
 
       loop
     
@@ -70,7 +75,7 @@ BEGIN
 
     
 
-      if (to_char(hoje,'YYYY-MM-dd') = '2024-01-01') OR  (to_char(hoje,'YYYY-MM-dd') = '2024-01-02') then 
+      if (to_char(hoje,'YYYY-MM-dd') = '2024-02-12') OR  (to_char(hoje,'YYYY-MM-dd') = '2024-02-13') then 
         ePonte = 'S';
       else 
         ePonte = 'N';
@@ -82,7 +87,7 @@ BEGIN
              where apo.id_empresa = _id_empresa and apo.id_exec = _id_usuario and to_char(apo.inicial,'YYYY-MM-dd') = to_char(hoje,'YYYY-MM-dd') 
              and (trim(apo.id_subconta) != '010954') and (trim(apo.id_subconta) != '010955') into horasApon;
 
-           //and not(apo.id_motivo = '003001' or apo.id_motivo = '003002') into horasApon;
+             --and not(apo.id_motivo = '003001' or apo.id_motivo = '003002') into horasApon;
 
       select coalesce(count(*),0) from feriados fer where fer.id_empresa = _id_empresa and fer.id_usuario = 0 and fer.id_tipo = 1 and to_char(fer.data,'YYYY-MM-dd') = to_char(hoje,'YYYY-MM-dd') into contador;
       
@@ -92,13 +97,7 @@ BEGIN
          eFeriado  = 'S';
       end if;
      
-      if (to_char(hoje,'YYYY-MM-dd') = '2023-12-07') then 
-        minHoras =  4 ;
-      else 
-        minHoras =  6;
-      end if;
-
-      //raise notice '_saida % % % % % É Util % É feriado % ', _saida,hoje,diaSemana,mes,horasApon,eUtil,eFeriado;
+      --raise notice '_saida % % % % % Ã‰ Util % Ã‰ feriado % ', _saida,hoje,diaSemana,mes,horasApon,eUtil,eFeriado;
 
       if ( (horasApon > 0) OR (eUtil = 'S' and eFeriado = 'N' and ePonte = 'N')) then
 

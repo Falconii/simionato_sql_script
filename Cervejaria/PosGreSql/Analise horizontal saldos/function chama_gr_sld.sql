@@ -11,14 +11,14 @@ BEGIN
             RAISE NOTICE  'CHAMANDO SALDOS %', _ano ;
         End If;
         FOR tempo in  
-              SELECT  sld.cdempresa,sld.cdfilial,sld.cdCC,sld.ano,sld.mes 
+              SELECT  sld.cdempresa,sld.cdfilial,sld.cdCC,sld.ano,sld.mes,sld.conta
               from saldo sld
-              where  sld.ano = _ano and  sld.mes = _mes
-              group by  sld.cdempresa, sld.cdfilial, sld.cdCC, sld.ano, sld.mes
-              order by  sld.cdempresa, sld.cdfilial, sld.cdCC, sld.ano, sld.mes
+              where  sld.ano = _ano and  sld.mes = _mes   --and (sld.cdempresa = '1001' and sld.cdfilial = 'C104' and sld.conta = '4501130130' and (sld.cdcc = '31240013' OR sld.cdcc = '31240016'))
+              group by  sld.cdempresa, sld.cdfilial, sld.cdCC, sld.ano, sld.mes , sld.conta
+              order by  sld.cdempresa, sld.cdfilial, sld.cdCC, sld.ano, sld.mes , sld.conta 
             LOOP            
-               //RAISE NOTICE  'Chama de saldos % % % % % ' ,  tempo.cdempresa,tempo.cdfilial,tempo.cdcc,tempo.ano,tempo.mes  ;
-                select gravaracumulado._saida into _retorno from gravaracumulado(tempo.cdempresa,tempo.cdfilial,tempo.cdcc,tempo.ano,tempo.mes); 
+               RAISE NOTICE  'Chama de saldos % % % % % => Conta %' ,  tempo.cdempresa,tempo.cdfilial,tempo.cdcc,tempo.ano,tempo.mes , tempo.conta ;
+               select gravaracumulado._saida into _retorno from gravaracumulado(tempo.cdempresa,tempo.cdfilial,tempo.cdcc,tempo.conta,tempo.ano,tempo.mes); 
             END LOOP;
             _saida := 'OK';
             RETURN; 
@@ -26,6 +26,8 @@ END;
 $$
 LANGUAGE 'plpgsql'
 go
+
+
 
 SELECT * FROM chama_gr_sld('2023','01')
 go
@@ -42,6 +44,14 @@ go
 SELECT * FROM chama_gr_sld('2023','07')
 go
 SELECT * FROM chama_gr_sld('2023','08')
+go
+SELECT * FROM chama_gr_sld('2023','09')
+go
+SELECT * FROM chama_gr_sld('2023','10')
+go
+SELECT * FROM chama_gr_sld('2023','11')
+go
+SELECT * FROM chama_gr_sld('2023','12')
 go
 SELECT distinct ano,mes 
               from saldo 
