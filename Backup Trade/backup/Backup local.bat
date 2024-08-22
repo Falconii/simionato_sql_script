@@ -1,0 +1,8 @@
+set PGPASSWORD=123456
+"C:\Program Files\PostgreSQL\10\bin\"pg_dump.exe -h localhost -U postgres -p 5432 -f"C:\Script SQL\Assessoria Simionato\Backup Trade\restore\tab_usuarios.bak"     --verbose --role "postgres" --format=c --blobs  --table "public.usuarios"           "db_trade_b"
+"C:\Program Files\PostgreSQL\10\bin\"pg_dump.exe -h localhost -U postgres -p 5432 -f"C:\Script SQL\Assessoria Simionato\Backup Trade\restore\tab_clientes.bak"     --verbose --role "postgres" --format=c --blobs  --table "public.clientes"           "db_trade_b"
+"C:\Program Files\PostgreSQL\10\bin\"pg_dump.exe -h localhost -U postgres -p 5432 -f"C:\Script SQL\Assessoria Simionato\Backup Trade\restore\tab_controle_e.bak"   --verbose --role "postgres" --format=c --blobs  --table "public.controle_e"         "db_trade_b"
+"C:\Program Files\PostgreSQL\10\bin\"pg_dump.exe -h localhost -U postgres -p 5432 -f"C:\Script SQL\Assessoria Simionato\Backup Trade\restore\tab_nfe_cab_e.bak"    --verbose --role "postgres" --format=c --blobs  --table "public.nfe_cab_e"          "db_trade_b"
+"C:\Program Files\PostgreSQL\10\bin\"pg_dump.exe -h localhost -U postgres -p 5432 -f"C:\Script SQL\Assessoria Simionato\Backup Trade\restore\tab_nfe_det_e.bak"    --verbose --role "postgres" --format=c --blobs  --table "public.nfe_det_e"          "db_trade_b"
+"C:\Program Files\PostgreSQL\10\bin\"pg_dump.exe -h localhost -U postgres -p 5432 -f"C:\Script SQL\Assessoria Simionato\Backup Trade\restore\tab_fechamento.bak"   --verbose --role "postgres" --format=c --blobs  --table "public.fechamento"         "db_trade_b"
+pause "Fim Do Processameno" 

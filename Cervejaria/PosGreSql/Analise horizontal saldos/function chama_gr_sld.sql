@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION "public"."chama_gr_sld" (in _ano text, in _mes text, out _saida text)  
+ CREATE OR REPLACE FUNCTION "public"."chama_gr_sld" (in _ano text, in _mes text, out _saida text)  
 AS
 $$
 DECLARE
@@ -53,9 +53,24 @@ SELECT * FROM chama_gr_sld('2023','11')
 go
 SELECT * FROM chama_gr_sld('2023','12')
 go
+
+//
 SELECT distinct ano,mes 
-              from saldo 
-              order by ano,mes
+                from saldo 
+                order by ano,mes
+
+
+
+SELECT * FROM chama_gr_sld('2024','01')
+go
+SELECT * FROM chama_gr_sld('2024','02')
+go
+SELECT * FROM chama_gr_sld('2024','03')
+go
+SELECT * FROM chama_gr_sld('2024','04')
+go
+SELECT * FROM chama_gr_sld('2024','05')
+go
 
 
 
@@ -66,4 +81,10 @@ where  mes = '06' limit 100
 SELECT distinct origem
 from saldo 
 
-DELETE  FROM acu_mensal
+//deletar um ano 
+--DELETE  FROM acu_mensal where ano = '2024'
+
+//deletar um ano 
+--DELETE  FROM acu_mensal where ano = '2024'
+//SALDOS
+--DELETE FROM SALDOS WHERE ANO = '2024'

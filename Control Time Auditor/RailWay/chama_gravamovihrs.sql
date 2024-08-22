@@ -21,12 +21,15 @@ $$
 LANGUAGE 'plpgsql'
 go
 
-select * from chama_gravamovihrs(1,1,20,01,2024) 
+select * from chama_gravamovihrs(1,1,35,05,2024) 
 
 
-//CREATE TABLE tickets_movi_12 AS  SELECT * FROM tickets_movi;
+//CREATE TABLE tickets_movi_06 AS  SELECT * FROM tickets_movi;
 
 SELECT * FROM tickets_movi
 --delete  FROM tickets_movi
 
-//SELECT * FROM tickets_movi_12
+//SELECT * FROM tickets_movi_
+
+SELECT * FROM FERIADOS WHERE ((TO_CHAR(DATA,'MM/YYYY') = '03/2024') OR (TO_CHAR(DATA,'MM/YYYY') = '04/2024')) AND ID_TIPO = 1 ORDER BY DATA
+

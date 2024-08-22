@@ -45,17 +45,25 @@ CREATE TABLE Public.FERIADOS (
 	data		Date NOT NULL,
     id_nivel    int4 NOT NULL,
 	descricao	VARCHAR(50),
-    nlanc_manha int4 NULL,
-    nlanc_tarde int4 NULL,
+	conta       char(02)   NOT NULL  , 
+    versao      char(04)   NOT NULL  ,
+	subconta    char(14)   NOT NULL  , 
     user_insert     int4 NULL,
     user_update     int4 NULL,
     PRIMARY KEY(id_empresa,id_usuario,id_tipo,data)
 )
 GO
 /*
-ALTER TABLE FERIADOS
+ALTER TABLE FERIADOS (Excluidos"
 ADD COLUMN  nlanc_manha int4 NULL,
 ADD COLUMN  nlanc_tarde int4 NULL;
+
+ALTER TABLE FERIADOS 
+ADD conta       char(02)  default '' NOT NULL  , 
+ADD versao      char(04)  default '' NOT NULL  ,
+ADD subconta    char(14)  default '' NOT NULL  ; 
+
+
 */
 
 //DROP TABLE IF EXISTS PROJETOS;

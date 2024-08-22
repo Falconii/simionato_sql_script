@@ -8,6 +8,16 @@
   FEV/2024 - GERADO 22/01 A 22/02
 
 */
+/*
+  FEV/2024  - GERADO 23/02 A 22/03
+  
+  MARC/2024 - GERADO 23/03 A 22/04
+  
+  MAI/2024  - GERADO 23/04 A 22/05
+  
+  jun/2924  - gerador 23/05 a 22/06
+  
+*/
 CREATE OR REPLACE FUNCTION "public"."function_gravamovihrs" (in _id_empresa int4,in _id_usuario int4, in _mes int4 , in _ano int4 , out _saida numeric(5,2) ) 
 AS
 $$
@@ -50,7 +60,7 @@ BEGIN
 
     eFerias = 'N';
         
-    hoje = cast ( _ano as char(4)) || '-' ||  cast ( _mes as char(2)) || '-22' ;
+    hoje = cast ( _ano as char(4)) || '-' ||  cast ( _mes as char(2)) || '-23' ;
 
     select extract(MONTH from hoje) into mes; 
 
@@ -58,7 +68,7 @@ BEGIN
     
     select extract(DAY from hoje) into dia; 
 
-    while ( ((mes = 01) AND (dia >= 22)) or((mes = 02) AND (dia <= 21)) ) 
+    while ( ((mes = 05) AND (dia >= 23)) or((mes = 06) AND (dia <= 22)) ) 
 
       loop
     
@@ -72,15 +82,13 @@ BEGIN
          eUtil  = 'S';
       end if;
 
-
-    
-
+/*
       if (to_char(hoje,'YYYY-MM-dd') = '2024-02-12') OR  (to_char(hoje,'YYYY-MM-dd') = '2024-02-13') then 
         ePonte = 'S';
       else 
         ePonte = 'N';
       end if;
-
+*/
       select EXTRACT(MONTH FROM hoje) into mes;
 
       select coalesce(sum(apo.horasapon),0) from apons_execucao apo 
@@ -151,3 +159,37 @@ INNER JOIN USUARIOS USU ON USU.ID_EMPRESA = MOVI.ID_EMPRESA AND USU.ID = MOVI.ID
 GROUP BY MOVI.id_usuario,usu.razao
 ORDER BY usu.razao
 
+SELECT * FROM USUARIOS ORDER BY ID
+
+UPDATE USUARIOS SET TICKET = 'N' WHERE ID = 30
+
+
+
+select 
+   usu.id as codigo,
+   usu.razao as nome,
+   case
+	   when extract(dow from g) = 1 then 'segunda'
+	   when extract(dow from g) = 2 then 'terça'
+	   when extract(dow from g) = 3 then 'quarta'
+	   when extract(dow from g) = 4 then 'quinta'
+	   when extract(dow from g) = 5 then 'sexta'
+	   when extract(dow from g) = 6 then 'sabado'
+	   when extract(dow from g) = 0 then 'domigo'
+   END DIA_SEMANA,
+   case
+       when fer.id_empresa is null then '-'
+	   else                             fer.descricao
+   end feriado,
+   case
+      when ((fer.id_empresa IS  NULL) and  ( extract(dow from g) >= 1 and extract(dow from g) <=5)) then 'S'
+	  else                                                                                                 'N'
+   end as dia_util,
+   TO_CHAR(g,'DD/MM/YYYY') AS DATA,
+   coalesce(movi.horas,0),
+   coalesce(movi.tickets,0)
+  from generate_series('2024-04-23'::date, '2024-05-22'::date, '1 day'::interval) as g(g)
+  inner join usuarios usu on usu.id_empresa = 1 and usu.id = 15
+  left join feriados fer on fer.id_empresa = 1 and fer.id_usuario = 0 and fer.id_tipo = 1 and fer.data = g 
+  left join tickets_movi movi on movi.ID_EMPRESA = 1 and  movi.ID_USUARIO = 15 and movi.data_ref = g
+  order by  usu.id , usu.codigo,g
